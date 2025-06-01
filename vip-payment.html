@@ -3,62 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Membership Payment</title>
+    <title>INSTA LEAKS | VIP Membership</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #ff2d55;
+            --secondary: #1a1a1a;
+            --accent: #f5a623;
+            --text: #e1e1e1;
+            --dark-bg: #121212;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
+            background-color: var(--dark-bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .vip-header {
             text-align: center;
-            padding: 20px;
+            margin-bottom: 50px;
         }
-        .payment-container {
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 20px;
-            background: #1a1a1a;
-            border-radius: 10px;
+        
+        .vip-header h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
         }
-        .qr-code {
-            width: 200px;
-            margin: 20px auto;
-            padding: 10px;
-            background: white;
-            border-radius: 5px;
+        
+        .vip-header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto;
         }
-        .payment-button {
+        
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .pricing-card {
+            background: linear-gradient(135deg, #1e1e1e, #131313);
+            border-radius: 15px;
+            padding: 40px 30px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            border: 1px solid rgba(255,45,85,0.2);
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+        
+        .pricing-card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .price span {
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+        
+        .features {
+            margin-bottom: 30px;
+        }
+        
+        .features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .features i {
+            color: var(--accent);
+        }
+        
+        .buy-button {
+            display: block;
+            text-align: center;
             background: linear-gradient(45deg, #ff2d55, #f5a623);
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .buy-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255,45,85,0.4);
+        }
+        
+        .payment-methods {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .payment-methods h2 {
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+        
+        .payment-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .payment-option {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 25px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .payment-option:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .payment-option i {
+            font-size: 1.5rem;
+        }
+        
+        .qr-section {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+        }
+        
+        .qr-section h2 {
+            margin-bottom: 20px;
+        }
+        
+        .qr-code {
+            max-width: 250px;
+            margin: 0 auto 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+        }
+        
+        .qr-code img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
-    <div class="payment-container">
-        <h1>VIP Membership Payment</h1>
-        <p>Get full access to all exclusive content for just ₹99</p>
-        
-        <div class="qr-code">
-            <!-- Replace with your actual UPI QR code -->
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=YOUR_UPI_ID&pn=InstaLeaks&am=99&tn=VIPMembership" alt="UPI QR Code">
+    <div class="container">
+        <div class="vip-header">
+            <h1>UPGRADE TO VIP MEMBERSHIP</h1>
+            <p>Get unlimited access to all exclusive content with no restrictions. VIP members get new leaks 24 hours before everyone else!</p>
         </div>
         
-        <p>OR</p>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h2>1 MONTH VIP</h2>
+                <div class="price">₹99 <span>/month</span></div>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Full access to all VIP content</li>
+                    <li><i class="fas fa-check"></i> New leaks 24 hours early</li>
+                    <li><i class="fas fa-check"></i> No advertisements</li>
+                    <li><i class="fas fa-check"></i> Priority support</li>
+                </ul>
+                <a href="#payment" class="buy-button">BUY NOW</a>
+            </div>
+            
+            <div class="pricing-card" style="border-color: var(--accent);">
+                <h2>3 MONTHS VIP</h2>
+                <div class="price">₹249 <span>/3 months</span></div>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Everything in 1 Month VIP</li>
+                    <li><i class="fas fa-check"></i> Save ₹48 compared to monthly</li>
+                    <li><i class="fas fa-check"></i> Exclusive bonus content</li>
+                    <li><i class="fas fa-check"></i> Special VIP badge</li>
+                </ul>
+                <a href="#payment" class="buy-button">BUY NOW</a>
+            </div>
+        </div>
         
-        <p>Send ₹99 to UPI ID: <strong>YOUR_UPI_ID</strong></p>
-        
-        <h3>After Payment:</h3>
-        <ol style="text-align: left; max-width: 300px; margin: 0 auto;">
-            <li>Take screenshot of payment</li>
-            <li>Send to @YourTelegramBot</li>
-            <li>You'll get VIP access in 5 minutes</li>
-        </ol>
-        
-        <button class="payment-button" onclick="window.location.href='index.html'">I've Paid</button>
+        <div id="payment" class="payment-methods">
+            <h2>SELECT PAYMENT METHOD</h2>
+            <div class="payment-options">
+                <div class="payment-option">
+                    <i class="fas fa-qrcode"></i>
+                    <span>UPI QR Code</span>
+                </div>
+                <div class="payment-option">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>PhonePe</span>
+                </div>
+                <div class="payment-option">
+                    <i class="fab fa-google-pay"></i>
+                    <span>Google Pay</span>
+                </div>
+                <div class="payment-option">
+                    <i class="fas fa-wallet"></i>
+                    <span>PayTM</span>
+                </div>
+            </div>
+            
+            <div class="qr-section">
+                <h2>Scan QR Code to Pay ₹99</h2>
+                <div class="qr-code">
+                    <!-- Replace with your actual QR code image -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=yourupi@id&pn=InstaLeaks&am=99&tn=VIPMembership" alt="UPI QR Code">
+                </div>
+                <p>OR</p>
+                <p>Send ₹99 to UPI ID: <strong>yourupi@id</strong></p>
+            </div>
+            
+            <div class="instructions">
+                <h3>How to complete your VIP membership:</h3>
+                <ol>
+                    <li>Make payment of ₹99 using any UPI app (PhonePe, Google Pay, PayTM, etc.)</li>
+                    <li>Take screenshot of successful payment</li>
+                    <li>Send the screenshot to our Telegram bot: @InstaLeaksBot</li>
+                    <li>You will receive your VIP access within 5 minutes</li>
+                    <li>Login again to access all VIP content</li>
+                </ol>
+            </div>
+        </div>
     </div>
 </body>
 </html>
