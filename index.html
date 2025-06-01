@@ -649,16 +649,43 @@
                 </div>
             </div>
             <div class="content-card">
-                <span class="free-badge">FREE</span>
-                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 3">
-                <div class="card-content">
-                    <h3>#3 HOTEL ROOM FOOTAGE</h3>
-                    <p>Security camera leaks from luxury hotel</p>
-                    <a href="#watch" class="watch-button">
-                        <i class="fas fa-play"></i> WATCH
-                    </a>
-                </div>
-            </div>
+    <span class="free-badge">FREE</span>
+    <a href="https://ibb.co/PZG66Xk4">
+        <img src="https://i.ibb.co/DDfRRcdk/IMG-7431.jpg" alt="IMG-7431" border="0">
+    </a>
+    <div class="card-content">
+        <h3>#3 HOTEL ROOM FOOTAGE</h3>
+        <p>Security camera leaks from luxury hotel</p>
+        <a href="#" class="watch-button" onclick="playVideo(event)">
+            <i class="fas fa-play"></i> WATCH
+        </a>
+    </div>
+</div>
+
+<!-- Hidden video modal -->
+<div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999;">
+  <video controls autoplay style="max-width:90%; max-height:90%; margin:5% auto; display:block;" id="videoPlayer">
+    <source src="https://files.catbox.moe/0b1ufl.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <!-- Close Button -->
+  <button onclick="closeVideo()" style="position:absolute; top:20px; right:30px; font-size:24px; background:none; color:white; border:none; cursor:pointer;">✖</button>
+</div>
+
+<script>
+  function playVideo(event) {
+    event.preventDefault();
+    document.getElementById("videoModal").style.display = "block";
+  }
+
+  function closeVideo() {
+    const video = document.getElementById("videoPlayer");
+    video.pause();
+    video.currentTime = 0;
+    document.getElementById("videoModal").style.display = "none";
+  }
+</script>
+
             <div class="content-card">
                 <span class="free-badge">FREE</span>
                 <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 4">
