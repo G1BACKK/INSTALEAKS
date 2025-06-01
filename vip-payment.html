@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Membership Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .payment-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            border-radius: 10px;
+        }
+        .qr-code {
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+        .payment-button {
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h1>VIP Membership Payment</h1>
+        <p>Get full access to all exclusive content for just ₹99</p>
+        
+        <div class="qr-code">
+            <!-- Replace with your actual UPI QR code -->
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=YOUR_UPI_ID&pn=InstaLeaks&am=99&tn=VIPMembership" alt="UPI QR Code">
+        </div>
+        
+        <p>OR</p>
+        
+        <p>Send ₹99 to UPI ID: <strong>YOUR_UPI_ID</strong></p>
+        
+        <h3>After Payment:</h3>
+        <ol style="text-align: left; max-width: 300px; margin: 0 auto;">
+            <li>Take screenshot of payment</li>
+            <li>Send to @YourTelegramBot</li>
+            <li>You'll get VIP access in 5 minutes</li>
+        </ol>
+        
+        <button class="payment-button" onclick="window.location.href='index.html'">I've Paid</button>
+    </div>
+</body>
+</html>
