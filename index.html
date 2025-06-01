@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSTA LEAKS | VIP Exclusive Content</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff2d55;
+            --secondary: #1a1a1a;
+            --accent: #f5a623;
+            --text: #e1e1e1;
+            --dark-bg: #121212;
+            --telegram: #0088cc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        
+        /* Glow effect for premium feel */
+        .glow {
+            text-shadow: 0 0 10px rgba(255,45,85,0.7);
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(180deg, #000 0%, rgba(0,0,0,0.8) 100%);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .vip-button {
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255,45,85,0.4);
+        }
+        
+        .vip-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,45,85,0.6);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 80px;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            display: inline-block;
+            margin: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255,45,85,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,45,85,0.6);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--text);
+        }
+        
+        .cta-button.secondary:hover {
+            background: rgba(255,45,85,0.2);
+        }
+        
+        .telegram-button {
+            background-color: var(--telegram);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .telegram-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,136,204,0.4);
+        }
+        
+        /* Social Share */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .share-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .share-button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .facebook { background-color: #3b5998; }
+        .twitter { background-color: #1da1f2; }
+        .whatsapp { background-color: #25d366; }
+        .telegram-share { background-color: var(--telegram); }
+        
+        /* Slider Section */
+        .slider-section {
+            padding: 80px 0;
+            background-color: var(--secondary);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        
+        .slider-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 500px;
+        }
+        
+        .slide {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+        }
+        
+        .slide-overlay h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .watch-button {
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        .watch-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255,45,85,0.4);
+        }
+        
+        /* VIP Promotion */
+        .vip-promo {
+            background: linear-gradient(135deg, #1a1a1a, #000);
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,45,85,0.3);
+            border-bottom: 1px solid rgba(255,45,85,0.3);
+        }
+        
+        .vip-promo h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .vip-promo p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .vip-features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 900px;
+            margin: 40px auto 0;
+        }
+        
+        .vip-feature {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,45,85,0.2);
+        }
+        
+        .vip-feature i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .vip-feature h3 {
+            margin-bottom: 10px;
+        }
+        
+        /* Content Grid */
+        .content-grid {
+            padding: 80px 0;
+            background-color: var(--dark-bg);
+        }
+        
+        .grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .content-card {
+            background-color: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        
+        .content-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .card-content p {
+            opacity: 0.7;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .premium-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #ff2d55, #f5a623);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .free-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #0088cc, #00a8ff);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* Auto-sliding animation */
+        @keyframes slide {
+            0%, 100% { transform: translateX(0); }
+            33% { transform: translateX(-100%); }
+            66% { transform: translateX(-200%); }
+        }
+        
+        .slider {
+            animation: slide 12s infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .slider {
+                height: 400px;
+            }
+            
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .vip-promo h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 22px;
+            }
+            
+            .vip-button {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .cta-button, .telegram-button {
+                padding: 12px 25px;
+                font-size: 16px;
+                margin: 5px;
+            }
+            
+            .slider {
+                height: 300px;
+            }
+            
+            .vip-promo h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">INSTA LEAKS</div>
+            <a href="#vip" class="vip-button">
+                <i class="fas fa-crown"></i> VIP ACCESS
+            </a>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="glow">EXCLUSIVE LEAKS</h1>
+            <p>Unlock premium content you won't find anywhere else. No ads, no restrictions - just the hottest leaks directly to you.</p>
+            <div>
+                <a href="#download" class="cta-button">
+                    <i class="fas fa-lock-open"></i> UNLOCK NOW
+                </a>
+                <a href="https://t.me/yourchannel" class="telegram-button" target="_blank">
+                    <i class="fab fa-telegram"></i> JOIN OUR TG
+                </a>
+            </div>
+            
+            <div class="social-share">
+                <a href="#" class="share-button facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="share-button twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="share-button whatsapp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="share-button telegram-share"><i class="fab fa-telegram-plane"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="slider-section" id="preview">
+        <div class="section-title">
+            <h2>TRENDING NOW</h2>
+            <p>These exclusive leaks are going viral right now</p>
+        </div>
+        <div class="slider-container">
+         <div class="slider">
+    <!-- Slide 1 -->
+    <div class="slide">
+        <img src="IMHHHHHHHHHHHH" alt="Leak 1">
+        <div class="slide-overlay">
+            <h3>LEAK #1: GUNGUN </h3>
+            <p>Never before seen footage from private event</p>
+            <a href="#watch" class="watch-button">
+                <i class="fas fa-play"></i> WATCH FULL VIDEO
+            </a>
+        </div>
+    </div>
+    
+    <!-- Slide 2 -->
+    <div class="slide">
+        <img src="IMHHHHHHHH" alt="Leak 2">
+        <div class="slide-overlay">
+            <h3>LEAK #2: SUBHASHREE </h3>
+            <p>What really happens when cameras are off</p>
+            <a href="#watch" class="watch-button">
+                <i class="fas fa-play"></i> WATCH FULL VIDEO
+            </a>
+        </div>
+    </div>
+    
+    <!-- Slide 3 -->
+    <div class="slide">
+        <img src="IMGGGGHHGGH" alt="Leak 3">
+        <div class="slide-overlay">
+            <h3>LEAK #3: NISHA </h3>
+            <p>Intimate footage leaked from personal archive</p>
+            <a href="#watch" class="watch-button">
+                <i class="fas fa-play"></i> WATCH FULL VIDEO
+            </a>
+        </div>
+    </div>
+</div>
+        </div>
+    </section>
+    
+    <section class="vip-promo">
+        <h2>UPGRADE TO VIP</h2>
+        <p>Get unlimited access to all exclusive content with no restrictions. VIP members get new leaks 24 hours before everyone else!</p>
+        <a href="#vip" class="cta-button">
+            <i class="fas fa-gem"></i> BECOME VIP NOW
+        </a>
+        
+        <div class="vip-features">
+            <div class="vip-feature">
+                <i class="fas fa-unlock"></i>
+                <h3>Full Access</h3>
+                <p>Unlock all premium content including private collections</p>
+            </div>
+            <div class="vip-feature">
+                <i class="fas fa-clock"></i>
+                <h3>Early Access</h3>
+                <p>Get new leaks 24 hours before free users</p>
+            </div>
+            <div class="vip-feature">
+                <i class="fas fa-ad"></i>
+                <h3>No Ads</h3>
+                <p>Enjoy completely ad-free experience</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="content-grid">
+        <div class="section-title">
+            <h2>FREE COLLECTION</h2>
+            <p>Sample these free leaks - upgrade to VIP for full access</p>
+        </div>
+        <div class="grid-container">
+            <!-- Free Content (1-10) -->
+            <div class="content-card">
+                <span class="free-badge">FREE</span>
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 1">
+                <div class="card-content">
+                    <h3>#1 PRIVATE PHOTOSHOOT</h3>
+                    <p>Full uncensored gallery from exclusive session</p>
+                    <a href="#watch" class="watch-button">
+                        <i class="fas fa-play"></i> WATCH
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="free-badge">FREE</span>
+                <img src="https://images.unsplash.com/photo-1503185912284-5271ff81b9a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 2">
+                <div class="card-content">
+                    <h3>#2 BEACH DAY LEAKS</h3>
+                    <p>Private vacation footage from tropical getaway</p>
+                    <a href="#watch" class="watch-button">
+                        <i class="fas fa-play"></i> WATCH
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="free-badge">FREE</span>
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 3">
+                <div class="card-content">
+                    <h3>#3 HOTEL ROOM FOOTAGE</h3>
+                    <p>Security camera leaks from luxury hotel</p>
+                    <a href="#watch" class="watch-button">
+                        <i class="fas fa-play"></i> WATCH
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="free-badge">FREE</span>
+                <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 4">
+                <div class="card-content">
+                    <h3>#4 BACKSTAGE ACCESS</h3>
+                    <p>What really happens before the show</p>
+                    <a href="#watch" class="watch-button">
+                        <i class="fas fa-play"></i> WATCH
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="free-badge">FREE</span>
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 5">
+                <div class="card-content">
+                    <h3>#5 SECRET RELATIONSHIP</h3>
+                    <p>Never before seen couple moments</p>
+                    <a href="#watch" class="watch-button">
+                        <i class="fas fa-play"></i> WATCH
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="free-badge">FREE</span>
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 6">
+                <div class="card-content">
+                    <h3>#6 DRESSING ROOM LEAK</h3>
+                    <p>Private changing room footage</p>
+                    <a href="#watch" class="watch-button">
+                        <i class="fas fa-play"></i> WATCH
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="free-badge">FREE</span>
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 7">
+                <div class="card-content">
+                    <h3>#7 POOL PARTY SCANDAL</h3>
+                    <p>Exclusive footage from wild party</p>
+                    <a href="#watch" class="watch-button">
+                        <i class="fas fa-play"></i> WATCH
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="free-badge">FREE</span>
+                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 8">
+                <div class="card-content">
+                    <h3>#8 PRIVATE JET LEAKS</h3>
+                    <p>What happens at 40,000 feet</p>
+                    <a href="#watch" class="watch-button">
+                        <i class="fas fa-play"></i> WATCH
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="free-badge">FREE</span>
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 9">
+                <div class="card-content">
+                    <h3>#9 NIGHTCLUB SECRETS</h3>
+                    <p>VIP section footage leaked</p>
+                    <a href="#watch" class="watch-button">
+                        <i class="fas fa-play"></i> WATCH
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="free-badge">FREE</span>
+                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 10">
+                <div class="card-content">
+                    <h3>#10 BIRTHDAY SURPRISE</h3>
+                    <p>Private celebration gone wild</p>
+                    <a href="#watch" class="watch-button">
+                        <i class="fas fa-play"></i> WATCH
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="content-grid" style="background-color: #000; padding-top: 0;">
+        <div class="section-title">
+            <h2>VIP EXCLUSIVES</h2>
+            <p>Premium content only available to VIP members</p>
+        </div>
+        <div class="grid-container">
+            <!-- VIP Content -->
+            <div class="content-card">
+                <span class="premium-badge">VIP</span>
+                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="VIP 1">
+                <div class="card-content">
+                    <h3>VIP #1 ULTIMATE COLLECTION</h3>
+                    <p>Never before seen private moments</p>
+                    <a href="#vip" class="watch-button">
+                        <i class="fas fa-lock"></i> UNLOCK VIP
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="premium-badge">VIP</span>
+                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="VIP 2">
+                <div class="card-content">
+                    <h3>VIP #2 PRIVATE GETAWAY</h3>
+                    <p>Exclusive vacation footage</p>
+                    <a href="#vip" class="watch-button">
+                        <i class="fas fa-lock"></i> UNLOCK VIP
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="premium-badge">VIP</span>
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="VIP 3">
+                <div class="card-content">
+                    <h3>VIP #3 BEHIND CLOSED DOORS</h3>
+                    <p>The most requested leaks</p>
+                    <a href="#vip" class="watch-button">
+                        <i class="fas fa-lock"></i> UNLOCK VIP
+                    </a>
+                </div>
+            </div>
+            <div class="content-card">
+                <span class="premium-badge">VIP</span>
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="VIP 4">
+                <div class="card-content">
+                    <h3>VIP #4 UNCENSORED SERIES</h3>
+                    <p>Raw unfiltered content</p>
+                    <a href="#vip" class="watch-button">
+                        <i class="fas fa-lock"></i> UNLOCK VIP
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
