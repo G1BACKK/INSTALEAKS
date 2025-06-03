@@ -621,11 +621,9 @@
                     </a>
                 </div>
             </div>
-            <div class="content-card">
+<div class="content-card">
     <span class="free-badge">FREE</span>
-    <a href="https://ibb.co/PZG66Xk4">
-        <img src="https://i.ibb.co/chXnPcQd/IMG-7431.jpg" alt="IMG-7431" border="0">
-    </a>
+    <img src="https://i.ibb.co/chXnPcQd/IMG-7431.jpg" alt="IMG-7431" style="cursor:pointer;" onclick="playVideo(event)">
     <div class="card-content">
         <h3>#3 HOTEL ROOM FOOTAGE</h3>
         <p>Security camera leaks from luxury hotel</p>
@@ -635,30 +633,130 @@
     </div>
 </div>
 
-<!-- Hidden video modal -->
+<!-- Ad Modal -->
+<div id="adModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:10000; text-align:center;">
+  <div style="margin:10% auto; max-width:800px; color:white;">
+    <h2>ADVERTISEMENT</h2>
+    <div id="adCountdown" style="font-size:24px; margin:20px 0;">15</div>
+    
+    <!-- Ad Video Player (with muted attribute for autoplay) -->
+    <video id="adPlayer" style="max-width:100%; max-height:60vh; margin:0 auto; display:block;" muted playsinline>
+      <source src="https://files.catbox.moe/e9uej6.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    
+    <!-- Telegram Button -->
+    <div style="margin-top:20px;">
+      <a href="https://t.me/Z4_ZIYA" target="_blank" style="background:#0088cc; color:white; padding:12px 25px; border-radius:5px; text-decoration:none; display:inline-block; font-weight:bold; font-size:18px;">
+        <i class="fab fa-telegram"></i> JOIN TELEGRAM CHANNEL
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Video Modal -->
 <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999;">
-  <video controls autoplay style="max-width:90%; max-height:90%; margin:5% auto; display:block;" id="videoPlayer">
-    <source src="https://files.catbox.moe/0b1ufl.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  <!-- Close Button -->
-  <button onclick="closeVideo()" style="position:absolute; top:20px; right:30px; font-size:24px; background:none; color:white; border:none; cursor:pointer;">✖</button>
+  <div style="position:relative; height:100%;">
+    <video controls style="max-width:90%; max-height:80%; margin:5% auto; display:block;" id="videoPlayer">
+      <source src="https://files.catbox.moe/0b1ufl.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <button onclick="closeVideo()" style="position:absolute; top:20px; right:30px; font-size:24px; background:none; color:white; border:none; cursor:pointer;">✖</button>
+  </div>
 </div>
 
 <script>
+  let adTimer;
+  let videoInterval;
+  const adDuration = 15; // seconds
+
   function playVideo(event) {
     event.preventDefault();
-    document.getElementById("videoModal").style.display = "block";
+    
+    // Start with main video
+    const videoModal = document.getElementById("videoModal");
+    const videoPlayer = document.getElementById("videoPlayer");
+    
+    videoModal.style.display = "block";
+    videoPlayer.play().catch(e => {
+      // If autoplay fails, mute and try again
+      videoPlayer.muted = true;
+      videoPlayer.play();
+    });
+    
+    // Start checking playback time
+    videoInterval = setInterval(() => {
+      if(videoPlayer.currentTime >= 180) { // After 3 minutes
+        showAd();
+        clearInterval(videoInterval);
+      }
+    }, 1000);
   }
-
-  function closeVideo() {
-    const video = document.getElementById("videoPlayer");
-    video.pause();
-    video.currentTime = 0;
+  
+  function showAd() {
+    const videoPlayer = document.getElementById("videoPlayer");
+    const adModal = document.getElementById("adModal");
+    const adPlayer = document.getElementById("adPlayer");
+    
+    videoPlayer.pause();
     document.getElementById("videoModal").style.display = "none";
+    
+    // Show and play ad
+    adModal.style.display = "block";
+    adPlayer.currentTime = 0;
+    adPlayer.muted = true; // Required for autoplay in most browsers
+    adPlayer.play().catch(e => console.error("Ad play failed:", e));
+    
+    // Start countdown
+    let secondsLeft = adDuration;
+    document.getElementById("adCountdown").textContent = secondsLeft;
+    
+    adTimer = setInterval(() => {
+      secondsLeft--;
+      document.getElementById("adCountdown").textContent = secondsLeft;
+      
+      if(secondsLeft <= 0) {
+        clearInterval(adTimer);
+        hideAd();
+      }
+    }, 1000);
   }
+  
+  function hideAd() {
+    const adPlayer = document.getElementById("adPlayer");
+    adPlayer.pause();
+    document.getElementById("adModal").style.display = "none";
+    
+    // Resume main video
+    const videoPlayer = document.getElementById("videoPlayer");
+    document.getElementById("videoModal").style.display = "block";
+    videoPlayer.play();
+    
+    // Reset interval for next ad
+    videoInterval = setInterval(() => {
+      if(videoPlayer.currentTime >= 180) {
+        showAd();
+        clearInterval(videoInterval);
+      }
+    }, 1000);
+  }
+  
+  function closeVideo() {
+    clearInterval(adTimer);
+    clearInterval(videoInterval);
+    
+    document.getElementById("videoPlayer").pause();
+    document.getElementById("adPlayer").pause();
+    
+    document.getElementById("videoModal").style.display = "none";
+    document.getElementById("adModal").style.display = "none";
+  }
+  
+  // Handle when ad ends naturally
+  document.getElementById("adPlayer").addEventListener('ended', hideAd);
 </script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
             <div class="content-card">
                 <span class="free-badge">FREE</span>
                 <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 4">
