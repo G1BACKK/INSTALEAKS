@@ -639,7 +639,7 @@
     <h2>ADVERTISEMENT</h2>
     <div id="adCountdown" style="font-size:24px; margin:20px 0;">15</div>
     
-    <!-- Ad Video Player (with muted attribute for autoplay) -->
+    <!-- Ad Video Player -->
     <video id="adPlayer" style="max-width:100%; max-height:60vh; margin:0 auto; display:block;" muted playsinline>
       <source src="https://files.catbox.moe/0z2l2l.mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -661,7 +661,7 @@
       <source src="https://files.catbox.moe/0b1ufl.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <button onclick="closeVideo()" style="position:absolute; top:20px; right:30px; font-size:24px; background:none; color:white; border:none; cursor:pointer;">✖</button>
+    <button onclick="closeAll()" style="position:absolute; top:20px; right:30px; font-size:24px; background:none; color:white; border:none; cursor:pointer;">✖</button>
   </div>
 </div>
 
@@ -669,15 +669,19 @@
   let adTimer;
   let videoInterval;
   const adDuration = 15; // seconds
+  let isAdPlaying = false;
+  let isVideoClosed = false;
 
   function playVideo(event) {
     event.preventDefault();
+    isVideoClosed = false;
     
     // Start with main video
     const videoModal = document.getElementById("videoModal");
     const videoPlayer = document.getElementById("videoPlayer");
     
     videoModal.style.display = "block";
+    videoPlayer.currentTime = 0;
     videoPlayer.play().catch(e => {
       // If autoplay fails, mute and try again
       videoPlayer.muted = true;
@@ -685,15 +689,24 @@
     });
     
     // Start checking playback time
+    startVideoMonitoring();
+  }
+  
+  function startVideoMonitoring() {
+    clearInterval(videoInterval);
+    const videoPlayer = document.getElementById("videoPlayer");
+    
     videoInterval = setInterval(() => {
-      if(videoPlayer.currentTime >= 180) { // After 3 minutes
+      if(!isVideoClosed && !isAdPlaying && videoPlayer.currentTime >= 180) { // After 3 minutes
         showAd();
-        clearInterval(videoInterval);
       }
     }, 1000);
   }
   
   function showAd() {
+    isAdPlaying = true;
+    clearInterval(videoInterval);
+    
     const videoPlayer = document.getElementById("videoPlayer");
     const adModal = document.getElementById("adModal");
     const adPlayer = document.getElementById("adPlayer");
@@ -704,7 +717,7 @@
     // Show and play ad
     adModal.style.display = "block";
     adPlayer.currentTime = 0;
-    adPlayer.muted = true; // Required for autoplay in most browsers
+    adPlayer.muted = true;
     adPlayer.play().catch(e => console.error("Ad play failed:", e));
     
     // Start countdown
@@ -716,32 +729,30 @@
       document.getElementById("adCountdown").textContent = secondsLeft;
       
       if(secondsLeft <= 0) {
-        clearInterval(adTimer);
-        hideAd();
+        completeAdPlayback();
       }
     }, 1000);
   }
   
-  function hideAd() {
+  function completeAdPlayback() {
+    clearInterval(adTimer);
+    isAdPlaying = false;
+    
     const adPlayer = document.getElementById("adPlayer");
     adPlayer.pause();
     document.getElementById("adModal").style.display = "none";
     
-    // Resume main video
-    const videoPlayer = document.getElementById("videoPlayer");
-    document.getElementById("videoModal").style.display = "block";
-    videoPlayer.play();
-    
-    // Reset interval for next ad
-    videoInterval = setInterval(() => {
-      if(videoPlayer.currentTime >= 180) {
-        showAd();
-        clearInterval(videoInterval);
-      }
-    }, 1000);
+    // Resume main video only if not closed
+    if(!isVideoClosed) {
+      const videoPlayer = document.getElementById("videoPlayer");
+      document.getElementById("videoModal").style.display = "block";
+      videoPlayer.play();
+      startVideoMonitoring();
+    }
   }
   
-  function closeVideo() {
+  function closeAll() {
+    isVideoClosed = true;
     clearInterval(adTimer);
     clearInterval(videoInterval);
     
@@ -753,7 +764,7 @@
   }
   
   // Handle when ad ends naturally
-  document.getElementById("adPlayer").addEventListener('ended', hideAd);
+  document.getElementById("adPlayer").addEventListener('ended', completeAdPlayback);
 </script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
