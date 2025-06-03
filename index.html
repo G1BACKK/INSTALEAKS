@@ -621,7 +621,7 @@
                     </a>
                 </div>
             </div>
-<div class="content-card">
+     <div class="content-card">
     <span class="free-badge">FREE</span>
     <img src="https://i.ibb.co/chXnPcQd/IMG-7431.jpg" alt="IMG-7431" style="cursor:pointer;" onclick="playVideo(event)">
     <div class="card-content">
@@ -633,14 +633,14 @@
     </div>
 </div>
 
-<!-- Ad Modal -->
+<!-- Ad Modal (Non-Skippable, Fullscreen) -->
 <div id="adModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:10000; text-align:center;">
   <div style="margin:10% auto; max-width:800px; color:white;">
-    <h2>ADVERTISEMENT</h2>
+    <h2>ADVERTISEMENT (15s)</h2>
     <div id="adCountdown" style="font-size:24px; margin:20px 0;">15</div>
     
-    <!-- Ad Video Player -->
-    <video id="adPlayer" style="max-width:100%; max-height:60vh; margin:0 auto; display:block;" muted playsinline>
+    <!-- Ad Video Player (Fullscreen) -->
+    <video id="adPlayer" style="width:100%; height:60vh; margin:0 auto; display:block;" playsinline controls>
       <source src="https://files.catbox.moe/0z2l2l.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -654,7 +654,7 @@
   </div>
 </div>
 
-<!-- Main Video Modal -->
+<!-- Main Video Modal (Hidden until ad finishes) -->
 <div id="videoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999;">
   <div style="position:relative; height:100%;">
     <video controls style="max-width:90%; max-height:80%; margin:5% auto; display:block;" id="videoPlayer">
@@ -667,8 +667,7 @@
 
 <script>
   let adTimer;
-  let videoInterval;
-  const adDuration = 15; // seconds
+  const adDuration = 15; // 15-second non-skippable ad
   let isAdPlaying = false;
   let isVideoClosed = false;
 
@@ -676,59 +675,56 @@
     event.preventDefault();
     isVideoClosed = false;
     
-    // Start with main video
-    const videoModal = document.getElementById("videoModal");
+    // Reset main video (but keep hidden)
     const videoPlayer = document.getElementById("videoPlayer");
-    
-    videoModal.style.display = "block";
     videoPlayer.currentTime = 0;
-    videoPlayer.play().catch(e => {
-      // If autoplay fails, mute and try again
-      videoPlayer.muted = true;
-      videoPlayer.play();
-    });
+    videoPlayer.pause();
     
-    // Start checking playback time
-    startVideoMonitoring();
-  }
-  
-  function startVideoMonitoring() {
-    clearInterval(videoInterval);
-    const videoPlayer = document.getElementById("videoPlayer");
-    
-    videoInterval = setInterval(() => {
-      if(!isVideoClosed && !isAdPlaying && videoPlayer.currentTime >= 180) { // After 3 minutes
-        showAd();
-      }
-    }, 1000);
+    // Show AD first (fullscreen)
+    showAd();
   }
   
   function showAd() {
     isAdPlaying = true;
-    clearInterval(videoInterval);
     
-    const videoPlayer = document.getElementById("videoPlayer");
     const adModal = document.getElementById("adModal");
     const adPlayer = document.getElementById("adPlayer");
     
-    videoPlayer.pause();
-    document.getElementById("videoModal").style.display = "none";
-    
-    // Show and play ad
+    // Show ad modal (fullscreen)
     adModal.style.display = "block";
     adPlayer.currentTime = 0;
-    adPlayer.muted = true;
-    adPlayer.play().catch(e => console.error("Ad play failed:", e));
+    adPlayer.muted = false;
+    
+    // Force fullscreen (if supported)
+    if (adPlayer.requestFullscreen) {
+      adPlayer.requestFullscreen().catch(err => {
+        console.log("Fullscreen error:", err);
+      });
+    }
     
     // Start countdown
     let secondsLeft = adDuration;
     document.getElementById("adCountdown").textContent = secondsLeft;
     
+    // Disable skipping (remove controls)
+    adPlayer.controls = false;
+    
+    // Play ad
+    const adPlayPromise = adPlayer.play();
+    if (adPlayPromise !== undefined) {
+      adPlayPromise.catch(error => {
+        // If sound fails, mute and try again
+        adPlayer.muted = true;
+        adPlayer.play();
+      });
+    }
+    
+    // Update countdown every second
     adTimer = setInterval(() => {
       secondsLeft--;
       document.getElementById("adCountdown").textContent = secondsLeft;
       
-      if(secondsLeft <= 0) {
+      if (secondsLeft <= 0) {
         completeAdPlayback();
       }
     }, 1000);
@@ -740,34 +736,74 @@
     
     const adPlayer = document.getElementById("adPlayer");
     adPlayer.pause();
+    
+    // Exit fullscreen
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+    
+    // Hide ad modal
     document.getElementById("adModal").style.display = "none";
     
-    // Resume main video only if not closed
-    if(!isVideoClosed) {
+    // Show main video only if not closed
+    if (!isVideoClosed) {
       const videoPlayer = document.getElementById("videoPlayer");
       document.getElementById("videoModal").style.display = "block";
-      videoPlayer.play();
-      startVideoMonitoring();
+      
+      // Play main video
+      videoPlayer.muted = false;
+      const playPromise = videoPlayer.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          videoPlayer.muted = true;
+          videoPlayer.play();
+        });
+      }
     }
   }
   
   function closeAll() {
     isVideoClosed = true;
     clearInterval(adTimer);
-    clearInterval(videoInterval);
     
+    // Pause both videos
     document.getElementById("videoPlayer").pause();
     document.getElementById("adPlayer").pause();
     
+    // Exit fullscreen if active
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+    
+    // Hide both modals
     document.getElementById("videoModal").style.display = "none";
     document.getElementById("adModal").style.display = "none";
   }
   
-  // Handle when ad ends naturally
+  // If ad ends naturally, proceed to video
   document.getElementById("adPlayer").addEventListener('ended', completeAdPlayback);
+  
+  // Prevent skipping by clicking
+  document.getElementById("adPlayer").addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+  
+  // Handle fullscreen exit (force ad to finish)
+  document.addEventListener('fullscreenchange', function() {
+    if (!document.fullscreenElement && isAdPlaying) {
+      // If user tries to exit, re-enter fullscreen
+      const adPlayer = document.getElementById("adPlayer");
+      if (adPlayer.requestFullscreen) {
+        adPlayer.requestFullscreen();
+      }
+    }
+  });
 </script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+            
             <div class="content-card">
                 <span class="free-badge">FREE</span>
                 <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80" alt="Content 4">
